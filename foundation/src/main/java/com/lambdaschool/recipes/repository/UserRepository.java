@@ -1,10 +1,7 @@
 package com.lambdaschool.recipes.repository;
 
 import com.lambdaschool.recipes.models.User;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

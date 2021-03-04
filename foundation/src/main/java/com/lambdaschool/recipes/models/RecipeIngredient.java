@@ -8,10 +8,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "recipeingredients")
-@IdClass(RecipeIngredientsId.class)
-public class RecipeIngredients
-        extends Auditable
-        implements Serializable {
+@IdClass(RecipeIngredientId.class)
+public class RecipeIngredient extends Auditable implements Serializable {
 
     @Id
     @ManyToOne
@@ -27,10 +25,10 @@ public class RecipeIngredients
     @JsonIgnoreProperties(value = "recipes", allowSetters = true)
     private Ingredient ingredient;
 
-    public RecipeIngredients() {
+    public RecipeIngredient() {
     }
 
-    public RecipeIngredients(@NotNull Recipe recipe, @NotNull Ingredient ingredient) {
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient) {
         this.recipe = recipe;
         this.ingredient = ingredient;
     }
@@ -52,22 +50,16 @@ public class RecipeIngredients
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof RecipeIngredients)) {
-            return false;
-        }
-        RecipeIngredients that = (RecipeIngredients) obj;
-        return ((recipe == null) ? 0 : recipe.getRecipeid()) ==
-                ((that.recipe == null) ? 0 : that.recipe.getRecipeid()) &&
-                ((ingredient == null) ? 0 : ingredient.getIngredientid()) ==
-                        ((that.ingredient == null) ? 0 : that.ingredient.getIngredientid());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecipeIngredient that = (RecipeIngredient) o;
+        return ((recipe == null) ? 0 : recipe.getRecipeid()) == ((that.recipe == null) ? 0 : that.recipe.getRecipeid()) &&
+                ((ingredient == null) ? 0 : ingredient.getIngredientid()) == ((that.ingredient == null) ? 0 : that.ingredient.getIngredientid());
     }
 
     @Override
     public int hashCode() {
-        return 37;
+        return 124;
     }
 }

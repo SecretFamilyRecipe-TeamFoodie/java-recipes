@@ -1,4 +1,4 @@
-package com.lambdaschool.foundation.services;
+package com.lambdaschool.recipes.services;
 
 import com.lambdaschool.recipes.RecipesApplication;
 import com.lambdaschool.recipes.exceptions.ResourceNotFoundException;
@@ -7,8 +7,6 @@ import com.lambdaschool.recipes.models.User;
 import com.lambdaschool.recipes.models.UserRoles;
 import com.lambdaschool.recipes.models.Useremail;
 import com.lambdaschool.recipes.repository.UserRepository;
-import com.lambdaschool.recipes.services.HelperFunctions;
-import com.lambdaschool.recipes.services.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

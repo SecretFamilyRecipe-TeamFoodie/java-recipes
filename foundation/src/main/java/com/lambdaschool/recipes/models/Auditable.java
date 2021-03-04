@@ -32,7 +32,7 @@ abstract class Auditable
      * String field containing the username of who created this row
      */
     @CreatedBy
-    protected String createdby;
+    protected String createdBy;
 
     /**
      * Date field containing the date and time when the row was created
@@ -41,13 +41,13 @@ abstract class Auditable
      */
     @CreatedDate
     @Temporal(TIMESTAMP)
-    protected Date createddate;
+    protected Date createdDate;
 
     /**
      * String field containing the username of who last modified this row
      */
     @LastModifiedBy
-    protected String lastmodifiedby;
+    protected String lastModifiedBy;
 
     /**
      * Date field containing the data and time when the row was last modified
@@ -56,5 +56,5 @@ abstract class Auditable
      */
     @LastModifiedDate
     @Temporal(TIMESTAMP)
-    protected Date lastmodifieddate;
+    protected Date lastModifiedDate;
 }

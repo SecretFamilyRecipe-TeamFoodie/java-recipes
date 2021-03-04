@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 // @EnableJpaAuditing
 @SpringBootApplication
-public class FoundationApplication
+public class RecipesApplication
 {
     /**
      * Main method to start the application.
@@ -17,7 +17,7 @@ public class FoundationApplication
      */
     public static void main(String[] args)
     {
-        SpringApplication.run(FoundationApplication.class,
+        SpringApplication.run(RecipesApplication.class,
             args);
     }
 }

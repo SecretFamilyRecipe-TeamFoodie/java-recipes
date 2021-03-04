@@ -4,6 +4,7 @@ import com.lambdaschool.recipes.models.Useremail;
 
 import java.util.List;
 
+
 /**
  * The Service that works with the Useremail Model
  * <p>

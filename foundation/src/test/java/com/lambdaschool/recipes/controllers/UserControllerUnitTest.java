@@ -1,4 +1,4 @@
-package com.lambdaschool.foundation.controllers;
+package com.lambdaschool.recipes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.recipes.RecipesApplication;
@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,6 +36,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+// mocking service to test controller
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = RecipesApplication.class)
@@ -201,9 +202,6 @@ public class UserControllerUnitTest
 
         Mockito.when(userService.findAll())
                 .thenReturn(userList);
-
-        System.out.println(SecurityContextHolder.getContext()
-                .getAuthentication().getName());
 
         RequestBuilder rb = MockMvcRequestBuilders.get(apiUrl)
                 .accept(MediaType.APPLICATION_JSON);

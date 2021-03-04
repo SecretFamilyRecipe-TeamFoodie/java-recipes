@@ -1,16 +1,19 @@
 package com.lambdaschool.recipes.repository;
 
 import com.lambdaschool.recipes.models.Recipe;
+import com.lambdaschool.recipes.models.User;
+import com.lambdaschool.recipes.models.UserRecipe;
 import org.springframework.data.repository.CrudRepository;
 
-/**
- * The CRUD Repository connecting Recipes to the rest of the application
- */
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
+    Recipe findByName(String name);
 
-    Recipe findRecipeByName(String name);
+    List<Recipe> findAllByName(String name);
 
-    Recipe addRecipe();
+    List<Recipe> findAllByOwner(@NotNull User owner);
 
-    void updateRecipe();
+    List<Recipe> findAllByGuestsContains(@NotNull UserRecipe guest);
 }

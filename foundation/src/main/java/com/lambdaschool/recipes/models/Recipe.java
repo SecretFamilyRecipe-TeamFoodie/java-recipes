@@ -4,41 +4,56 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "recipes")
-public class Recipe extends Auditable {
-
+public class Recipe extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long recipeid;
 
     @NotNull
-    @Column(unique = true)
     private String name;
 
-    @Column(unique = false)
     private String source;
 
-    @Column
     private String instructions;
+
+    private String category;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "recipe", allowSetters = true)
+    private List<RecipeIngredient> ingredients = new ArrayList<>();
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "categoryid")
-    @JsonIgnoreProperties(value = "recipes", allowSetters = true)
-    private Recipe recipe;
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = {"ownerrecipes", "roles", "useremails", "guestrecipes", "primaryemail"}, allowSetters = true) // only vital information
+    private User owner;
 
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "recipe", allowSetters = true)
+    private List<UserRecipe> guests = new ArrayList<>();
 
     public Recipe() {
     }
 
-    public Recipe(@NotNull String name, String source, String instructions) {
+    public Recipe(RecipeMinimal minimal)
+    {
+        name = minimal.getName();
+        category = minimal.getCategory();
+        source = minimal.getSource();
+        instructions = minimal.getInstructions();
+        if(minimal.getRecipeid() != 0) recipeid = minimal.getRecipeid();
+    }
+
+    public Recipe(@NotNull String name, String source, String instructions, String category) {
         this.name = name;
         this.source = source;
         this.instructions = instructions;
+        this.category = category;
     }
 
     public long getRecipeid() {
@@ -73,11 +88,35 @@ public class Recipe extends Auditable {
         this.instructions = instructions;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public String getCategory() {
+        return category;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<RecipeIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<UserRecipe> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<UserRecipe> guests) {
+        this.guests = guests;
     }
 }
