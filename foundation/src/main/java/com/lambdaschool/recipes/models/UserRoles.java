@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * The entity allowing interaction with the userroles table.

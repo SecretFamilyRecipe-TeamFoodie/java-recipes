@@ -16,72 +16,33 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 import javax.annotation.Resource;
 
-/**
- * This class allows us to set standard security protocols to be used throughout the application,
- * such as password encoding, location of token store, our implementation of users, among others
- */
 @Configuration
 @EnableWebSecurity
-// This allows us to further restrict access to an endpoint inside of a controller.
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig
-        extends WebSecurityConfigurerAdapter
-{
-    /**
-     * Allows us to customize the Authentication Manager. Normally, as we do here, we just take the defaults.
-     *
-     * @return The configured authentication manager
-     * @throws Exception In case our custom configurations do not work.
-     */
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean()
-            throws
-            Exception
-    {
-        return super.authenticationManagerBean();
-    }
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
-     * Connects the user details used by Spring Security to our implementation of it
-     */
     @Resource(name = "securityUserService")
     private UserDetailsService userDetailsService;
 
-    /**
-     * Ties our implementation of user details and password encoding to the Authentication Manager
-     *
-     * @param auth the connection to our authentication manager
-     * @throws Exception in case our custom configuration does not work
-     */
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth)
-            throws
-            Exception
-    {
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(encoder());
     }
 
-    /**
-     * We will store our token in memory. This way when the application exists all access tokens are invalidated.
-     *
-     * @return A token store configured to be used in memory
-     */
     @Bean
-    public TokenStore tokenStore()
-    {
+    public TokenStore tokenStore() {
         return new InMemoryTokenStore();
     }
 
-    /**
-     * Set our preferred encoder for our password
-     *
-     * @return A password will be encoded using the standard BCrypt method
-     */
     @Bean
-    public PasswordEncoder encoder()
-    {
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }

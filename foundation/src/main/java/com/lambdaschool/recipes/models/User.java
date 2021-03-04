@@ -3,14 +3,12 @@ package com.lambdaschool.recipes.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -73,6 +71,14 @@ public class User
     @JsonIgnoreProperties(value = "user",
             allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "owner", allowSetters = true)
+    private List<Recipe> ownerrecipes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<UserRecipe> guestrecipes = new ArrayList<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -249,5 +255,21 @@ public class User
         }
 
         return rtnList;
+    }
+
+    public List<Recipe> getOwnerrecipes() {
+        return ownerrecipes;
+    }
+
+    public void setOwnerrecipes(List<Recipe> ownerrecipes) {
+        this.ownerrecipes = ownerrecipes;
+    }
+
+    public List<UserRecipe> getGuestrecipes() {
+        return guestrecipes;
+    }
+
+    public void setGuestrecipes(List<UserRecipe> guestrecipes) {
+        this.guestrecipes = guestrecipes;
     }
 }

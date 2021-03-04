@@ -4,12 +4,11 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class RecipeIngredientsId implements Serializable {
+public class RecipeIngredientId implements Serializable {
     private long recipe;
-
     private long ingredient;
 
-    public RecipeIngredientsId() {
+    public RecipeIngredientId() {
     }
 
     public long getRecipe() {
@@ -29,21 +28,16 @@ public class RecipeIngredientsId implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return 37;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        RecipeIngredientsId that = (RecipeIngredientsId) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecipeIngredientId that = (RecipeIngredientId) o;
         return recipe == that.recipe &&
                 ingredient == that.ingredient;
     }
-}
 
+    @Override
+    public int hashCode() {
+        return 125;
+    }
+}

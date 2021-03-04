@@ -1,14 +1,13 @@
 package com.lambdaschool.recipes.services;
 
-import com.lambdaschool.recipes.exceptions.ResourceFoundException;
 import com.lambdaschool.recipes.exceptions.ResourceNotFoundException;
-import com.lambdaschool.recipes.models.*;
+import com.lambdaschool.recipes.models.Role;
+import com.lambdaschool.recipes.models.User;
+import com.lambdaschool.recipes.models.UserRoles;
+import com.lambdaschool.recipes.models.Useremail;
 import com.lambdaschool.recipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -195,10 +194,11 @@ public class UserServiceImpl
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public void deleteAll()
     {
         userrepos.deleteAll();
     }
 }
+

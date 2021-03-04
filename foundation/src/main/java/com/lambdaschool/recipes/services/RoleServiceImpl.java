@@ -7,7 +7,6 @@ import com.lambdaschool.recipes.repository.RoleRepository;
 import com.lambdaschool.recipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public class RoleServiceImpl
         return rolerepos.save(role);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public void deleteAll()
     {

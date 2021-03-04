@@ -2,14 +2,12 @@ package com.lambdaschool.recipes.controllers;
 
 import com.lambdaschool.recipes.models.User;
 import com.lambdaschool.recipes.services.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -44,10 +42,6 @@ public class UserController
     public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();
-
-        System.out.println(SecurityContextHolder.getContext()
-                .getAuthentication().getName());
-
         return new ResponseEntity<>(myUsers,
                 HttpStatus.OK);
     }

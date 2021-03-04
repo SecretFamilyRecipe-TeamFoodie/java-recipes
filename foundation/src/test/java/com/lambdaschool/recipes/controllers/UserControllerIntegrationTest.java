@@ -1,4 +1,4 @@
-package com.lambdaschool.foundation.controllers;
+package com.lambdaschool.recipes.controllers;
 
 import com.lambdaschool.recipes.RecipesApplication;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
